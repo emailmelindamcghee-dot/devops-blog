@@ -16,5 +16,7 @@ jobs:
     - name: Push to GitLab
       run: |
         git remote add gitlab https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/emailmelindamcghee-dot/devops-blog.git  
-        git push gitlab --all
+        git fetch gitlab
+        git merge gitlab/main --allow-unrelated-histories || echo "No conflicts"
+        git push gitlab main
         git push gitlab --tags
